@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh">
+<html lang="zh-CN">
 
 
 
@@ -16,7 +16,7 @@
   <meta name="theme-color" content="#2f4154">
   <meta name="description" content="">
   <meta name="author" content="Kanily">
-  <meta name="keywords" content="Front-end Js Css">
+  <meta name="keywords" content="Front-End Js Css">
   <title>Apollo-Server - Kanily&#39;s Blog</title>
 
   <link  rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/4.4.1/css/bootstrap.min.css" />
@@ -50,7 +50,7 @@
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
-       href="/">&nbsp;<strong>Fluid</strong>&nbsp;</a>
+       href="/">&nbsp;<strong>Kanily's Blog</strong>&nbsp;</a>
 
     <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
             data-target="#navbarSupportedContent"
@@ -68,7 +68,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/">
               <i class="iconfont icon-home-fill"></i>
-              ホーム</a>
+              首页</a>
           </li>
         
           
@@ -77,7 +77,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/archives/">
               <i class="iconfont icon-archive-fill"></i>
-              アーカイブ</a>
+              归档</a>
           </li>
         
           
@@ -86,7 +86,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/categories/">
               <i class="iconfont icon-category-fill"></i>
-              カテゴリー</a>
+              分类</a>
           </li>
         
           
@@ -95,7 +95,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/tags/">
               <i class="iconfont icon-tags-fill"></i>
-              タグ</a>
+              标签</a>
           </li>
         
           
@@ -104,7 +104,7 @@
           <li class="nav-item">
             <a class="nav-link" href="/about/">
               <i class="iconfont icon-user-fill"></i>
-              本ブログ情報　</a>
+              关于</a>
           </li>
         
         
@@ -133,7 +133,7 @@
                 <div class="mt-3 post-meta">
                   <i class="iconfont icon-date-fill" aria-hidden="true"></i>
                   <time datetime="2020-07-06 17:42">
-                    July 6, 2020 pm
+                    2020年7月6日 下午
                   </time>
                 </div>
               
@@ -143,7 +143,7 @@
                   
                   <span class="post-meta mr-2">
                     <i class="iconfont icon-chart"></i>
-                    5.3k 字
+                    5.2k 字
                   </span>
                 
 
@@ -504,7 +504,7 @@ input PostAndMediaInput {
 
 <p>当多个操作需要完全相同的数据集合时，输入类型有时会很有用，但是您应该谨慎地复用它们。操作最终可能会在其所需的参数之间产生分歧。</p>
 <p><strong>不要对query和mutation使用相同</strong>的输入类型。在许多情况下，mutation所需的参数对于相应的query是可选的。</p>
-<h5 id="Schema的扩大"><a href="#Schema的扩大" class="headerlink" title="Schema的扩大"></a>Schema的扩大</h5><p>随着你的组织成长与演变，你的数据图也会相应的成长。新的产品和特性会引入新的Schema类型和字段。为了追踪这段时间的变化，你应该用版本控制去维护你的定义的Schema。</p>
+<h5 id="Schema的演变"><a href="#Schema的演变" class="headerlink" title="Schema的演变"></a>Schema的演变</h5><p>随着你的组织成长与演变，你的数据图也会相应的成长。新的产品和特性会引入新的Schema类型和字段。为了追踪这段时间的变化，你应该用版本控制去维护你的定义的Schema。</p>
 <p>大多数的Schema的增加是安全且向后兼容的。但是，发生的变化产生的删除和修改行为对于一个或更多已存在的应用可能是破坏性的改变。下面的schema改变会具有潜在的破坏性：</p>
 <ul>
 <li>删除一个类型或字段</li>
@@ -512,7 +512,7 @@ input PostAndMediaInput {
 <li>增加一个可为空字段</li>
 <li>删除一个字段参数</li>
 </ul>
-<p>诸如Apollo Studio[<a href="https://studio.apollographql.com/]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。" target="_blank" rel="noopener">https://studio.apollographql.com/]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。</a></p>
+<p>诸如Apollo Studio[<a href="https://studio.apollographql.com]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。">https://studio.apollographql.com]之类的图形管理工具可帮助您了解潜在的Schema更改是否会影响您的正在使用客户端。Studio还通过操作安全列表提供字段级性能指标，Schema历史记录跟踪和高级安全性。</a></p>
 <h5 id="文档字符串"><a href="#文档字符串" class="headerlink" title="文档字符串"></a>文档字符串</h5><p>GraphQL的Schema定义语言（SDL）支持启用markdown的文档字符串。这些可帮助数据图的使用者发现字段并学习如何使用它们。</p>
 <p>以下代码段显示了如何同时使用单行字符串文字和多行块：</p>
 <pre>
@@ -540,9 +540,9 @@ type MyObjectType {
 </ul>
 <p>这些约定有助于确保大多数客户端不需要定义额外的逻辑即可转换服务器返回的结果</p>
 <h5 id="query-驱动的Schema设计"><a href="#query-驱动的Schema设计" class="headerlink" title="query 驱动的Schema设计"></a>query 驱动的Schema设计</h5><p>当GraphQL schema的执行操作是依据客户端的需求而设计时，其功能最为强大。尽管您可以构造类型，使它们与后端数据存储的结构匹配，但您duck不必这样！单个对象类型的字段可以许多不同来源的数据所填充。<strong>根据数据的使用方式（而不是数据的存储方式）设计Schema</strong>。</p>
-<p>如果您的数据存储区包含客户尚不需要的字段或关系，请从您的模式中将其忽略。向架构中添加新字段比删除某些客户端正在使用的现有字段更加容易和安全。</p>
-<p><strong>query 驱动的Schema设计示例</strong><br>假设我们正在创建一个Web应用程序，其中列出了我们区域内的近期活动。我们希望该应用程序显示每个事件的名称，日期和位置，以及天气预报。</p>
-<p>在这种情况下，我们希望Web应用程序能够执行具有类似于以下内容的结构的查询</p>
+<p>如果您的数据存储区包含客户端尚不需要的字段或关系，请从您的Schema中将其忽略。向Schema中添加新字段比删除某些客户端正在使用的现有字段更加容易和安全。</p>
+<p><strong>query 驱动的Schema设计示例</strong><br>假设我们正在创建一个Web应用程序，其中列出了我们地区内的近期活动。我们希望该应用显示每个事件的名称，日期和位置，以及天气预报。</p>
+<p>在这种情况下，我们希望Web应用能够执行具有类似于以下内容的结构的查询</p>
 <pre>
 query EventList {
   upcomingEvents {
@@ -558,7 +558,7 @@ query EventList {
   }
 }
 </pre>
-<p>因为我们知道这是对我们的客户有帮助的数据结构，所以可以通知我们架构的结构：</p>
+<p>因为我们知道这是对我们的客户有帮助的数据结构，所以我们可以这样设计schema的结构：</p>
 <pre>
 type Query {
   upcomingEvents: [Event]
@@ -580,9 +580,9 @@ type WeatherInfo {
   description: String
 }
 </pre>
-<p>如上所述，可以使用来自不同数据源（或多个数据源）的数据填充这些类型中的每一个。例如，该Event类型的name和date可能会填充有我们后端数据库中的数据，而该WeatherInfo类型的可能会填充有来自第三方Weather API的数据。</p>
-<h5 id="设计mutation"><a href="#设计mutation" class="headerlink" title="设计mutation"></a>设计mutation</h5><p>在GraphQL中，建议每个突变的响应都包含该突变修改的数据。这使客户端无需发送后续查询即可获取最新的持久化数据。</p>
-<p>一个模式，支持更新email的User会包括以下内容：</p>
+<p>如上所述，可以使用来自不同数据源（或多个数据源）的数据填充每一个类型中。例如，该<code>Event类型</code>的<code>name</code>和<code>date</code>字段可能从后端数据库获取``，而该WeatherInfo类型的可能来自第三方Weather API的数据。</p>
+<h5 id="设计mutation"><a href="#设计mutation" class="headerlink" title="设计mutation"></a>设计mutation</h5><p>在GraphQL中，建议每个mutation的返回值都包含该mutation修改的数据。这使客户端无需发送后续查询即可获取最新的持久化数据。</p>
+<p>一个Schema，支持更新email的User会包括以下内容：</p>
 <pre>
  type Mutation {
    # This mutation takes id and email parameters and responds with a User
@@ -595,7 +595,7 @@ type WeatherInfo {
    email: String!
  }
 </pre>
-<p>然后，客户端可以针对具有以下结构的架构执行变异：</p>
+<p>然后，客户端可以针对具有以下结构的schema执行mutation：</p>
 <pre>
 mutation updateMyUser {
   updateUserEmail(id: 1, email: "jane@example.com"){
@@ -617,10 +617,10 @@ mutation updateMyUser {
   }
 }
 </pre>
-<p>虽然它不是强制性的突变的响应包括修改的对象，这样大大提高了客户端代码的效率。与查询一样，确定哪些突变对您的客户有用，这有助于告知架构的结构。</p>
-<h6 id="构建突变反应"><a href="#构建突变反应" class="headerlink" title="构建突变反应"></a>构建突变反应</h6><p>单个突变可以修改多种类型，或同一类型的多个实例。例如，使用户能够“喜欢”博客文章的突变可能会增加a的likes计数Post 并更新的likedPosts列表User。这使得突变响应的结构看起来像什么不太明显。</p>
-<p>此外，由于突变会修改数据，因此比查询引起错误的可能性要高得多。变异甚至可能导致部分错误，在该错误中，成功修改了一条数据而没有修改另一条数据。无论错误的类型如何，以一致的方式将错误传达回客户端都是很重要的。</p>
-<p>为帮助解决这两个问题，建议MutationResponse您在架构中定义一个接口，以及实现该接口的对象类型的集合（每个突变一个）。</p>
+<p>虽然它不是强制性的mutation的返回包括修改的对象，这样大大提高了客户端代码的效率。与查询一样，确定哪些mutation对您的客户有用，这有助于告知架构的结构。</p>
+<h6 id="构建突变反应"><a href="#构建突变反应" class="headerlink" title="构建突变反应"></a>构建突变反应</h6><p>单个mutation可以修改多种类型，或同一类型的多个实例。例如，使用户能够“喜欢”博客文章的mutation可能会增加<code>Post</code>的<code>likes</code>计数，并更新的<code>likedPosts</code>的<code>User</code>列表。这使得mutation返回的结构不太明晰。</p>
+<p>此外，由于mutation会修改数据，因此比查询引起错误的可能性要高得多。mutation甚至可能导致部分错误，比如成功修改了一条数据而没有修改另一条数据。无论错误的类型如何，以一致的方式将错误传达回客户端都是很重要的。</p>
+<p>为帮助解决这两个问题，建议您在架构中定义一个<code>MutationResponse</code>接口，以及用对象类型的集合实现该接口（每个mutation一个）。</p>
 <p>下面是什么MutationResponse接口的样子：</p>
 <pre>
 interface MutationResponse {
@@ -639,7 +639,7 @@ type UpdateUserEmailMutationResponse implements MutationResponse {
   user: User
 }
 </pre>
-<p>我们的updateUserEmail突变将指定UpdateUserEmailMutationResponse为返回类型（而不是User），其响应的结构如下：</p>
+<p>我们的updateUserEmail的mutation将指定UpdateUserEmailMutationResponse为返回类型（而不是User），其响应的结构如下：</p>
 <pre>
 {
   "data": {
@@ -657,8 +657,8 @@ type UpdateUserEmailMutationResponse implements MutationResponse {
 }
 </pre>
 
-<p>让我们按字段细分此字段：<br>code是代表数据传输状态的字符串。可以将其视为HTTP状态代码。<br>success是一个布尔值，指示突变是否成功。这允许客户端进行粗略检查，以了解是否存在故障。<br>message是描述突变结果的人类可读字符串。它打算在产品的UI中使用。<br>user由实现类型添加，UpdateUserEmailMutationResponse以将新更新的用户返回给客户端。</p>
-<p>如果变异修改多种类型（例如我们前面的“喜欢”博客文章的示例），则其实现类型可以为每个被修改的类型包括一个单独的字段：</p>
+<p>让我们按字段细分此字段：<br>code是代表数据传输状态的字符串。可以将其视为HTTP状态代码。<br>success是一个布尔值，指示mutation是否成功。这允许客户端进行粗略检查，以了解是否存在故障。<br>message是描述mutation结果的可读性字符串。可以在产品的UI中使用。<br>user由实现类型添加，UpdateUserEmailMutationResponse以将新更新的用户返回给客户端。</p>
+<p>如果mutation修改多种类型（例如我们前面的“喜欢”博客文章的示例），则其实现类型可以为每个被修改的类型包括一个单独的字段：</p>
 <pre>
 type LikePostMutationResponse implements MutationResponse {
   code: String!
@@ -668,7 +668,7 @@ type LikePostMutationResponse implements MutationResponse {
   user: User
 }
 </pre>
-<p>由于我们的假设likePost突变会同时修改a Post和a 上的字段User，因此其响应对象包括这两种类型的字段。响应具有以下结构：</p>
+<p>由于我们的假设likePost突变会同时修改Post和User，因此其返回对象包括这两种类型的字段。返回值具有以下结构：</p>
 <pre>
 {
   "data": {
@@ -687,7 +687,7 @@ type LikePostMutationResponse implements MutationResponse {
   }
 }
 </pre>
-<p>遵循此模式可为客户提供有关每个请求的操作结果的有用的详细信息。有了这些信息，开发人员可以更好地应对其客户端代码中的操作失败。</p>
+<p>遵循此模式为客户端关每个请求的操作结果提供有用的详细信息。有了这些信息，开发人员可以更好地应对其客户端代码中的操作失败。</p>
 <h4 id="自定义标量类型和枚举类型"><a href="#自定义标量类型和枚举类型" class="headerlink" title="自定义标量类型和枚举类型"></a>自定义标量类型和枚举类型</h4><h4 id="联合与接口"><a href="#联合与接口" class="headerlink" title="联合与接口"></a>联合与接口</h4><h4 id="使用schema指令"><a href="#使用schema指令" class="headerlink" title="使用schema指令"></a>使用schema指令</h4><h4 id="执行指令"><a href="#执行指令" class="headerlink" title="执行指令"></a>执行指令</h4>
             </article>
             <hr>
@@ -727,7 +727,7 @@ type LikePostMutationResponse implements MutationResponse {
     
       <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
         <div id="toc">
-  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;ディレクトリ</p>
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
   <div id="tocbot"></div>
 </div>
 
@@ -754,7 +754,7 @@ type LikePostMutationResponse implements MutationResponse {
   <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header text-center">
-        <h4 class="modal-title w-100 font-weight-bold">検索</h4>
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
         <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -763,7 +763,7 @@ type LikePostMutationResponse implements MutationResponse {
         <div class="md-form mb-5">
           <input type="text" id="local-search-input" class="form-control validate">
           <label data-error="x" data-success="v"
-                 for="local-search-input">キーワード</label>
+                 for="local-search-input">关键词</label>
         </div>
         <div class="list-group" id="local-search-result"></div>
       </div>
