@@ -238,7 +238,58 @@
 <li>promise执行成功就走下一个then成功， promise执行失败就走下一个then的失败</li>
 <li>/</li>
 </ul>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PENDING = <span class="string">"pending"</span>;</span><br><span class="line"><span class="keyword">const</span> FULFILLED = <span class="string">"fulfilled"</span>;</span><br><span class="line"><span class="keyword">const</span> REJECTED = <span class="string">'rejected'</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">Promise</span>(<span class="params">excutor</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">let</span> that = <span class="keyword">this</span>; <span class="comment">//缓存当前promise 实例对象</span></span><br><span class="line">  that.status = PENDING; <span class="comment">// 初始状态</span></span><br><span class="line">  that.value = <span class="literal">undefined</span>; <span class="comment">// fulfilled状态时 返回的信息</span></span><br><span class="line">  that.reason = <span class="literal">undefined</span>; <span class="comment">// rejected状态时 拒绝的原因</span></span><br><span class="line">  that.onFulfilledCallbacks = []; <span class="comment">//存储fulfilled 状态对应的onFulfilled函数</span></span><br><span class="line">  that.onRejectedCallbacks = []; <span class="comment">//存储rejected 状态对应的onRejected 函数</span></span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">resovle</span> (<span class="params">value</span>) </span>&#123; <span class="comment">//value 成功态时接受的终值</span></span><br><span class="line">    <span class="keyword">if</span>(value <span class="keyword">instanceof</span> <span class="built_in">Promise</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> value.then(resovle, reject)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//实践中要确保 onFulfilled 和 onRejected方法异步执行，</span></span><br><span class="line">    <span class="comment">//且应该在then 方法调用的时候那一轮事件循环的执行栈执行结束之后</span></span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 调用resovle 回调对应的onFulfilled函数</span></span><br><span class="line">      <span class="keyword">if</span> (that.status === PENDING) &#123;</span><br><span class="line">        <span class="comment">// 只能由pending状态 =》 fulfilled 状态（避免多次调用resovle reject）</span></span><br><span class="line">        that.status = FULFILLED;</span><br><span class="line">        that.value = value;</span><br><span class="line">        that.onFulfilledCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> &#123;</span><br><span class="line">          callback(that.value)</span><br><span class="line">        &#125;);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="function"><span class="keyword">function</span> <span class="title">reject</span>(<span class="params">reason</span>) </span>&#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="comment">// 调用reject 回调对应onRejected 函数</span></span><br><span class="line">        <span class="keyword">if</span> (that.status === PENDING) &#123;</span><br><span class="line">          <span class="comment">// 只能由 pending =》 rejected （避免多次调用resovle reject）</span></span><br><span class="line">          that.status = REJECTED;</span><br><span class="line">          that.reason = reason;</span><br><span class="line">          that.onRejectedCallbacks.forEach(<span class="function"><span class="params">callback</span> =&gt;</span> &#123;</span><br><span class="line">            callback(that.reason)</span><br><span class="line">          &#125;)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">//捕获在excutor执行期炮数的异常</span></span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    excutor(resovle, reject)</span><br><span class="line">  &#125; <span class="keyword">catch</span> (error) &#123;</span><br><span class="line">    reject(e)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="hljs js"><span class="hljs-keyword">const</span> PENDING = <span class="hljs-string">"pending"</span>;
+<span class="hljs-keyword">const</span> FULFILLED = <span class="hljs-string">"fulfilled"</span>;
+<span class="hljs-keyword">const</span> REJECTED = <span class="hljs-string">'rejected'</span>;
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Promise</span>(<span class="hljs-params">excutor</span>) </span>&#123;
+  <span class="hljs-keyword">let</span> that = <span class="hljs-keyword">this</span>; <span class="hljs-comment">//缓存当前promise 实例对象</span>
+  that.status = PENDING; <span class="hljs-comment">// 初始状态</span>
+  that.value = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// fulfilled状态时 返回的信息</span>
+  that.reason = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">// rejected状态时 拒绝的原因</span>
+  that.onFulfilledCallbacks = []; <span class="hljs-comment">//存储fulfilled 状态对应的onFulfilled函数</span>
+  that.onRejectedCallbacks = []; <span class="hljs-comment">//存储rejected 状态对应的onRejected 函数</span>
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">resovle</span> (<span class="hljs-params">value</span>) </span>&#123; <span class="hljs-comment">//value 成功态时接受的终值</span>
+    <span class="hljs-keyword">if</span>(value <span class="hljs-keyword">instanceof</span> <span class="hljs-built_in">Promise</span>) &#123;
+      <span class="hljs-keyword">return</span> value.then(resovle, reject)
+    &#125;
+    <span class="hljs-comment">//实践中要确保 onFulfilled 和 onRejected方法异步执行，</span>
+    <span class="hljs-comment">//且应该在then 方法调用的时候那一轮事件循环的执行栈执行结束之后</span>
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+      <span class="hljs-comment">// 调用resovle 回调对应的onFulfilled函数</span>
+      <span class="hljs-keyword">if</span> (that.status === PENDING) &#123;
+        <span class="hljs-comment">// 只能由pending状态 =》 fulfilled 状态（避免多次调用resovle reject）</span>
+        that.status = FULFILLED;
+        that.value = value;
+        that.onFulfilledCallbacks.forEach(<span class="hljs-function"><span class="hljs-params">callback</span> =&gt;</span> &#123;
+          callback(that.value)
+        &#125;);
+      &#125;
+    &#125;)
+  &#125;
+
+  <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">reject</span>(<span class="hljs-params">reason</span>) </span>&#123;
+    setTimeout(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> &#123;
+      <span class="hljs-comment">// 调用reject 回调对应onRejected 函数</span>
+        <span class="hljs-keyword">if</span> (that.status === PENDING) &#123;
+          <span class="hljs-comment">// 只能由 pending =》 rejected （避免多次调用resovle reject）</span>
+          that.status = REJECTED;
+          that.reason = reason;
+          that.onRejectedCallbacks.forEach(<span class="hljs-function"><span class="hljs-params">callback</span> =&gt;</span> &#123;
+            callback(that.reason)
+          &#125;)
+        &#125;
+    &#125;)
+  &#125;
+
+  <span class="hljs-comment">//捕获在excutor执行期炮数的异常</span>
+  <span class="hljs-keyword">try</span> &#123;
+    excutor(resovle, reject)
+  &#125; <span class="hljs-keyword">catch</span> (error) &#123;
+    reject(e)
+  &#125;
+&#125;</code></pre>
 
 <p>Promise.prototype.then = function(onFulfilled, onRejected) {<br>  const that = this;<br>  let newPromise;<br>  onFulfilled =<br>    typeof onFulfilled === “function” ? onFulfilled : value =&gt; value;<br>  onRejected =<br>   typeof onRejected === “function” ? onRejected : reason =&gt; {<br>     throw reason<br>   }</p>
 <p>   if(that.status === FULFILLED) {<br>     return newPromise = new Promise((resovle, reject) =&gt; {<br>       setTimeout(() =&gt; {<br>         try {<br>           let x = onFulfilled(that.value)<br>           resovlePromise(newPromise, x, resovle, reject);<br>         } catch (error) {<br>           reject(error)<br>         }<br>       })<br>     })<br>   }</p>
@@ -255,7 +306,7 @@
   })
 })</code></pre><p>  }</p>
 <p>}</p>
-<p>function resovlePromise (newPromise, x, resolve, reject) {<br>  let that = this;<br>  if(newPromise === x) {<br>    reject(new TypeError(‘Chaining cycle’));<br>  }<br>  if(x &amp; typeof x === ‘object’ || typeof x === ‘function’) {<br>    let used;<br>    try {<br>      let then = x.then;<br>      if(typeof then === ‘function’) {<br>        then.call(x, (y) =&gt; {<br>          if(used) return;<br>          used === true;<br>          resovlePromise(newPromise, y, resolve, reject);<br>        }, (reason) =&gt; {<br>          if(used) return;<br>          used === true;<br>          reject(reason);<br>        })<br>      }else {<br>        if(used) return;<br>        used = true;<br>        resolve(x);<br>      }<br>    } catch (error) {<br>      if(used) return;<br>      used = true;<br>      reject(error);<br>    }<br>  }else{<br>    resolve(x);<br>  }<br>}</p>
+<p>function resolvePromise (newPromise, x, resolve, reject) {<br>  let that = this;<br>  if(newPromise === x) {<br>    reject(new TypeError(‘Chaining cycle’));<br>  }<br>  if(x &amp; typeof x === ‘object’ || typeof x === ‘function’) {<br>    let used;<br>    try {<br>      let then = x.then;<br>      if(typeof then === ‘function’) {<br>        then.call(x, (y) =&gt; {<br>          if(used) return;<br>          used === true;<br>          resovlePromise(newPromise, y, resolve, reject);<br>        }, (reason) =&gt; {<br>          if(used) return;<br>          used === true;<br>          reject(reason);<br>        })<br>      }else {<br>        if(used) return;<br>        used = true;<br>        resolve(x);<br>      }<br>    } catch (error) {<br>      if(used) return;<br>      used = true;<br>      reject(error);<br>    }<br>  }else{<br>    resolve(x);<br>  }<br>}</p>
 <p>// promise.finally<br>// 不管成功 or 失败 最终都会走到finally 还可以继续 then 且可以把值原封不动的传给后面的then<br>Promise.prototype.finally = function (callback) {<br>  return this.then((value) =&gt; {<br>    return Promise.resolve(callback()).then(() =&gt; {<br>      return value<br>    })<br>  }, (err) =&gt; {<br>    return Promise.resolve(callback().then(() =&gt; {<br>      throw err<br>    }))<br>  })<br>}</p>
 <p>//promise.all（promises） 返回一个promise对象<br>/**</p>
 <ul>
@@ -347,9 +398,9 @@ for (let i = 0; i &lt; promises.length; i++) {
                   <div class="post-prev col-6">
                     
                     
-                      <a href="/2020/07/06/prototype/this/">
+                      <a href="/2020/07/06/prototype/prototype/">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">prototype/this</span>
+                        <span class="hidden-mobile">prototype/prototype</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -357,8 +408,8 @@ for (let i = 0; i &lt; promises.length; i++) {
                   <div class="post-next col-6">
                     
                     
-                      <a href="/2020/07/06/prototype/prototype/">
-                        <span class="hidden-mobile">prototype/prototype</span>
+                      <a href="/2020/07/06/algorithm/BinarySearchTree/">
+                        <span class="hidden-mobile">algorithm/BinarySearchTree</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
